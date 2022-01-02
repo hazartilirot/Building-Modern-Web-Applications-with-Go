@@ -53,9 +53,9 @@ intMap := make(map[string]int)
 
 ### Conditional 
 
-uses **== - double equals** to compare values and types. Additionally 
+uses **== - double equals** to compare values and types. Additionally, 
 you can't write an expression omitting curly braces. There is another one 
-feature is that we don't wrap an expression with parenthesis like in JS or TS.
+feature is that we don't wrap an expression with parentheses like in JS or TS.
 
 ```
     myNum := 100
@@ -86,4 +86,20 @@ myVar := "dog"
 	}
 ```
 
+### Loops and Ranging over data
+
+**for** loop isn't wrapped in parentheses. In the second case a placeholder is 
+used to omit an index value. Otherwise, a compiler would complain.
+
+```
+    for i := 0; i <= 10; i++ {
+		log.Println(i)
+	}
+
+	mySlice := []string{"dog", "cat", "horse", "fish", "banana"}
+	
+	for _, value := range mySlice {
+		log.Println(value)
+	}
+```
 
