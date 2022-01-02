@@ -25,3 +25,22 @@ with a capital letter it might be available outside the current package.
 
 **struct** looks like an interface in Typescript
 
+Slices are like Arrays in Typescript. There is a difference in naming, and a 
+pair of curly brackets is used.
+
+```
+var stringSlice []string
+	stringSlice = append(stringSlice, "Trevor")
+```
+
+Short way:
+
+`stringSclie := {"one", "two", "three}`
+
+Maps, assigning is akin to square bracket notation
+
+```
+intMap := make(map[string]int)
+	
+	intMap["First"] = 1
+```
