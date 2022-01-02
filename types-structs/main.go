@@ -15,7 +15,7 @@ func saySomething(s string) (string, string) {
 type User struct {
 	FirstName string
 	LastName string
-	PhoneMumber string
+	PhoneNumber string
 	Age int
 	BirthDate time.Time
 }
