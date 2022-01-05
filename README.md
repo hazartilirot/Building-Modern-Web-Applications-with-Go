@@ -103,3 +103,17 @@ used to omit an index value. Otherwise, a compiler would complain.
 	}
 ```
 
+### Interfaces
+
+There isn't a key word or explicit implementation of an interface. Once a 
+func parameter accepts the object type (or many func) and then, those funcs 
+become a kind of methods of the object and if its funcs "implements" an 
+interface they are suitable to be used as a polymorphism. A slightly 
+different approach than once is used to think of an interface implementation. 
+
+### Modules and Packages
+
+Conventionally, after a key word "init" a go developer is used his GitHub repo.
+````
+go mod init github.com/username/project-name
+````
