@@ -117,3 +117,7 @@ Conventionally, after a key word "init" a go developer is used his GitHub repo.
 ````
 go mod init github.com/username/project-name
 ````
+
+### Channels
+
+Is a weird method of passing values that must be reconsidered.
