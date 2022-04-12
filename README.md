@@ -1,4 +1,12 @@
-# NOTES 
+# About the course (snippet)
+
+This course is well-suited for both absolute beginners, and for developers who already know something about web development, but want to add Go to their toolbox.
+
+We start with an overview of the Go language, and then cover everything you need to get started writing web applications, including an overview of HTML5, a survey of JavaScript and JavaScript modules, how to work with Cascading Style Sheets to make our application look the way we want, and much more.
+
+The major project in this course is building a bookings and reservation system for a Bed & Breakfast. Visitors to our site will be able to search for accommodations by date and make an online reservation, and the site owner will be able to manage reservations from a secure back end.
+
+# PERSONAL NOTES 
 
 ### Pointers
 

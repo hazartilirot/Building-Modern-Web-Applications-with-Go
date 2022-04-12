@@ -2,16 +2,15 @@ package main
 
 import "testing"
 
-
 var test = []struct {
-	name string
+	name     string
 	dividend float32
-	divisor float32
+	divisor  float32
 	expected float32
-	isErr	bool
+	isErr    bool
 }{
-	{ "valid-data", 100.0, 10.0, 10.0, false },
-	{ "invalid-data", 100.0, 0, 0, true },
+	{"valid-data", 100.0, 10.0, 10.0, false},
+	{"invalid-data", 100.0, 0, 0, true},
 }
 
 func TestDivision(t *testing.T) {
@@ -26,7 +25,7 @@ func TestDivision(t *testing.T) {
 				t.Error("did not expect an error but have one", err.Error())
 			}
 		}
-		
+
 		if got != tt.expected {
 			t.Errorf("expected %f but got %f", tt.expected, got)
 		}
@@ -35,7 +34,7 @@ func TestDivision(t *testing.T) {
 
 func TestDivide(t *testing.T) {
 	_, err := divide(10.0, 1.0)
-	
+
 	if err != nil {
 		t.Error("Got an error when we should not have")
 	}
@@ -43,7 +42,7 @@ func TestDivide(t *testing.T) {
 
 func TestNilDivision(t *testing.T) {
 	_, err := divide(10.0, 0)
-	
+
 	if err == nil {
 		t.Error("Did not get an error when we should have")
 	}
