@@ -128,4 +128,12 @@ go mod init github.com/username/project-name
 
 ### Channels
 
-Is a weird method of passing values that must be reconsidered.
+Is a weird method of passing values that must be lately reconsidered.
+
+### 3-ty part libraries
+
+Installing a 3-ty part libraries is followed by the command
+````
+go get github.com/bmizerany/pat
+````
+Don't use `http://` before a domain name in the command. Otherwise it fails while executing
