@@ -10,23 +10,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
-  <style>
-      .my-footer {
-          height: 5em;
-          background: #163b65;
-          padding: 1em;
-          margin-top: 1em;
-          color: white;
-          font-size: 80%;
-
-      }
-      .room-image {
-          width: 50%;
-      }
-      .notie-container {
-        box-shadow: none;
-      }
-  </style>
+  <link rel="stylesheet" type="text/css" href="static/css/styles.css">
 </head>
 <body>
 
@@ -104,12 +88,13 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
 <script src="https://unpkg.com/notie"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   (() => {
     'use strict'
   
     const forms = document.querySelectorAll('.needs-validation')
-  
+    
     Array.prototype.slice.call(forms)
       .forEach(f => f.addEventListener('submit', e => {
           if (!f.checkValidity()) {
@@ -125,6 +110,87 @@
     format: 'dd/mm/yyyy'
   });
   const notify = (type, text) => notie.alert({ type, text })
+  const alertModal = (title, text, icon, confirmButtonText) => Swal.fire({ 
+    title, text, icon, confirmButtonText 
+  })
+  
+  const prompt = () => {
+    const toast = ({
+      position = 'top-end',
+      icon = 'success',
+      msg = ""
+    }) => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position,
+        icon,
+        title: msg,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({ icon, title })
+    }
+    const modal = ({ 
+      icon = 'success',
+      text = '',
+      title = '',
+      footer = ''
+    }) => {
+      Swal.fire({ icon, title, text, footer })
+    }
+    
+    const htmlReservationTemplateForm = `
+      <div class="row">
+        <form action="" method="post" novalidate class="needs-validation" id="reservation-dates-modal">
+          <div class="row" id="reservation-dates-modal">
+            <div class="col">
+              <input class="form-control" type="text" id="start" name="start" required disabled placeholder="Arrival">
+            </div>  
+            <div class="col">
+              <input class="form-control" type="text" id="end" name="end" required disabled placeholder="Departure">
+            </div>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    `
+    
+    const reservationForm = async ({ html = '', title = '' }) => {
+      const start = document.getElementById('start').value
+      const end = document.getElementById('end').value
+      const el = document.querySelector('#reservation-dates-modal')
+      const { value: formValues } = await Swal.fire({
+        title,
+        html,
+        backdrop: false,
+        focusConfirm: false,
+        showCancelButton: true,
+        willOpen: () => {
+          const datepicker = new DateRangePicker(el, {
+            format: 'dd/mm/yyyy',
+            showOnFocus: true
+          })
+        },
+        preConfirm: () => [start, end],
+        didOpen: () => {
+          start.removeAttribute('disabled')
+          end.removeAttribute('disabled')
+        }
+      })
+      if (formValues) {
+        Swal.fire(JSON.stringify(formValues))
+      }
+    }
+    return {
+      toast, modal, reservationForm
+    }
+  }
 </script>
 </body>
 </html>
