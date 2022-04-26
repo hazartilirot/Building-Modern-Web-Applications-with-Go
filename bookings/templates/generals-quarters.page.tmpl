@@ -1,0 +1,65 @@
+{{template "base" .}}
+
+{{define "content"}}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="/static/images/generals-quarters.png" alt="generals quarters" 
+           class="img-fluid img-thumbnail mx-auto d-block room-image"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center mt-3">General's Quarters</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam blanditiis cumque debitis minus nemo nihil
+        praesentium qui repudiandae totam! Animi expedita, harum obcaecati odit officiis, omnis, pariatur placeat
+        porro quidem recusandae repellendus sed sit? Aliquid corporis ea eos obcaecati provident. Aliquid atque dolore
+        doloremque ipsam iure labore molestias nihil pariatur provident quaerat, saepe sunt unde. Accusantium alias
+        aperiam culpa deserunt eius enim est eveniet fuga fugiat illo libero maxime odit officia porro quae, quam
+        recusandae repellat repellendus rerum, tempore temporibus ullam voluptas voluptatem. Ab accusantium ad
+        aspernatur commodi culpa, cum dignissimos et eum expedita id ipsa, ipsam iure nemo neque nesciunt, officiis
+        perferendis placeat possimus reiciendis sint sit veniam voluptatum? Deserunt dignissimos esse incidunt iure
+        nobis nulla, qui suscipit. A accusantium aliquam aperiam asperiores beatae blanditiis consectetur consequatur
+        consequuntur, corporis cum dolore doloribus, dolorum eligendi esse et eveniet excepturi illo iste laborum
+        maxime molestiae nam, natus neque nesciunt nobis odio officia officiis pariatur placeat porro quaerat quasi
+        quod similique soluta ullam unde veniam. Ad debitis delectus, distinctio dolor enim excepturi molestias
+        possimus quam quo sunt. Facilis maiores nemo non. Delectus dolores excepturi incidunt ipsam, modi non nostrum
+        numquam, quae quasi quidem quod recusandae rerum suscipit. At corporis cumque provident rerum.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-center">
+      <a href="#!" class="btn btn-primary" id="btn-check-availability">Check availability</a>
+    </div>
+  </div>
+</div>
+{{end}}
+
+{{define "js"}}
+<script>
+  const btnCheckAvailability = document.querySelector('#btn-check-availability')
+  
+  btnCheckAvailability.addEventListener('click', () => {
+    const html = `
+      <div class="container">
+        <form action="" method="post" novalidate class="needs-validation" id="form-check-availability">
+          <div class="row">
+            <div class="col">
+              <div class="row" id="reservation-dates-modal">
+                <div class="col">
+                  <input class="form-control" type="text" id="start" name="start" required disabled placeholder="Arrival">
+                </div>  
+                <div class="col">
+                  <input class="form-control" type="text" id="end" name="end" required disabled placeholder="Departure">
+                </div>
+              </div>
+            </div>
+          </div>  
+        </form>
+      </div>
+    `
+    attention.reservationForm({html, title: "Choose any date"})
+  })
+</script>
+{{end}}
