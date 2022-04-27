@@ -119,31 +119,28 @@
           }) => {
             Swal.fire({ icon, title, text, footer })
           }
-          const reservationForm = async ({ html = '', title = '' }) => {
-            const { value: formValues } = await Swal.fire({
+          const reservationForm = async ({ html = '', title = '', willOpen, didOpen, cb }) => {
+            const { value: result } = await Swal.fire({
               title,
               html,
               backdrop: false,
               focusConfirm: false,
               showCancelButton: true,
-              willOpen: () => {
-                const el = document.querySelector('#reservation-dates-modal')
-                const datepicker = new DateRangePicker(el, {
-                  format: 'dd/mm/yyyy',
-                  showOnFocus: true
-                })
-              },
               preConfirm: () => [
                 document.querySelector('#start').value,
                 document.querySelector('#end').value
               ],
-              didOpen: () => {
-                document.querySelector('#start').removeAttribute('disabled')
-                document.querySelector('#end').removeAttribute('disabled')
-              }
+              willOpen: () => willOpen !== undefined ? willOpen() : undefined,
+              didOpen: () => didOpen !== undefined ? didOpen() : undefined,
             })
-            if (formValues) {
-              Swal.fire(JSON.stringify(formValues))
+            if (result) {
+              if (result.dismiss !== Swal.DismissReason.cancel) {
+                if (result.value !== "") {
+                  if (cb !== undefined) {
+                    cb(result)
+                  }
+                }
+              }
             }
           }
           return { toast, modal, reservationForm }

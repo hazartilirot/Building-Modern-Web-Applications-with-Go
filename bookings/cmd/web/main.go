@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/alexedwards/scs/v2"
-	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/pkg/config"
-	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/pkg/handlers"
-	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/pkg/render"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/config"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/handlers"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/render"
 	"log"
 	"net/http"
 	"time"

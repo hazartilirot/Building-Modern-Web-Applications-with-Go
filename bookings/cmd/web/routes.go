@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/pkg/config"
-	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/pkg/handlers"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/config"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/handlers"
 	"net/http"
 )
 
@@ -20,6 +20,8 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/majors-suite", handlers.Repo.MajorsSuite)
 	mux.Get("/generals-quarters", handlers.Repo.GeneralsQuarters)
 	mux.Get("/room-availability", handlers.Repo.RoomAvailability)
+	mux.Post("/room-availability", handlers.Repo.FormRoomAvailability)
+	mux.Post("/room-availability-json", handlers.Repo.FormRoomAvailabilityJson)
 	mux.Get("/reservations", handlers.Repo.Reservations)
 	mux.Get("/contact", handlers.Repo.Contact)
 

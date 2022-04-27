@@ -6,7 +6,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
           <h1 class="text-center mt-3">Search for availability</h1>
-          <form action="/reservations" method="get" novalidate class="needs-validation">
+          <form action="/room-availability" method="post" novalidate class="needs-validation">
             <div class="row" id="reservation-dates">
               <div class="col">
                 <input class="form-control" type="text" name="start" required placeholder="Arrival">
@@ -15,6 +15,7 @@
                 <input class="form-control" type="text" name="end" required placeholder="Departure">
               </div>
             </div>
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
             <hr>
             <button type="submit" class="btn btn-primary">Search</button>
           </form>

@@ -39,8 +39,10 @@
 <script>
   
   const btnCheckAvailability = document.querySelector('#btn-check-availability')
+  const title = "Choose any date"
   
   btnCheckAvailability.addEventListener('click', () => {
+    const token = {{.CSRFToken}}
     const html = `
       <div class="container">
         <form action="" method="post" novalidate class="needs-validation" id="form-check-availability">
@@ -55,11 +57,38 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
+          <input type="hidden" name="csrf_token" value="${token}">
         </form>
       </div>
     `
-    attention.reservationForm({html, title: "Choose any date"})
+    attention.reservationForm({ 
+      html, 
+      title, 
+      willOpen: () => {
+       const el = document.querySelector('#reservation-dates-modal')
+        const datepicker = new DateRangePicker(el, {
+          format: 'dd/mm/yyyy',
+          showOnFocus: true
+        })
+      },
+      didOpen: () => {
+        document.querySelector('#start').removeAttribute('disabled')
+        document.querySelector('#end').removeAttribute('disabled')
+      },
+      cb: result => {
+        const form = document.getElementById("form-check-availability")
+        const formData = new FormData(form)
+        form.append("csrf_token", `{{.CSRFToken}}`)
+        
+        fetch('/room-availability-json', {
+          method: 'POST',
+          body: formData
+        })
+          .then(resp => resp.json())
+          .then(json => console.log(json))
+      }
+    })
   })
 </script>
 {{end}}
