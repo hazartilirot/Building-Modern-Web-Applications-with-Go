@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/config"
+	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/forms"
 	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/models"
 	"github.com/hazartilirot/Building-Modern-Web-Applications-with-Go/bookings/internal/render"
 	"log"
@@ -53,7 +54,42 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 
 /*Reservations responsible for rendering room reservation*/
 func (m *Repository) Reservations(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "reservations.page.tmpl", &models.TemplateData{})
+	data := make(map[string]interface{})
+	data["reservations"] = models.Reservations{}
+	render.RenderTemplate(w, r, "reservations.page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+		Data: data,
+	})
+}
+func (m *Repository) PostReservations(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+	reservations := models.Reservations{
+		FirstName: r.Form.Get("first_name"),
+		LastName:  r.Form.Get("last_name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
+	}
+
+	form := forms.New(r.PostForm)
+
+	//form.HasField("first_name", r)
+
+	form.Required("first_name", "last_name", "email", "phone")
+	form.MinLength("first_name", 3, r)
+
+	if !form.IsValid() {
+		data := make(map[string]interface{})
+		data["reservations"] = reservations
+
+		render.RenderTemplate(w, r, "reservations.page.tmpl", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
 }
 func (m *Repository) GeneralsQuarters(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "generals-quarters.page.tmpl", &models.TemplateData{})
